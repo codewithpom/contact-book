@@ -11,7 +11,7 @@ while True:
         name_to_be_added = input("Enter the name of the person").strip()
         number_to_be_added = input("Enter the number of the person")
         cursor.execute("CREATE TABLE IF NOT EXISTS Users(name, number)")
-        print("INSERT INTO Users(name, number)VALUES ('" + name_to_be_added + "','" + number_to_be_added + "')")
+        # print("INSERT INTO Users(name, number)VALUES ('" + name_to_be_added + "','" + number_to_be_added + "')")
         cursor.execute(
             "INSERT INTO Users(name, number)VALUES ('" + name_to_be_added + "','" + number_to_be_added + "')")
         '''cursor.execute("INSERT INTO Users (name, number)VALUES ('Pom','9955410708')")'''
@@ -19,11 +19,17 @@ while True:
         break
 
     elif status_for_2 == True:
-        raw_result = cursor.execute("SELECT * FROM USERS")
+        try:
+            raw_result = cursor.execute("SELECT * FROM USERS")
+
+        except Exception:
+            print("Sorry Sir there is no record inthe database of any number please try by adding some of them by pressing 1")
+            input("Press enter to exit")
+            quit()
 
         finished_result = list(raw_result)
-
-        name_for_search = input("Enter the number you want to search for").lower().strip()
+        
+        name_for_search = input("Enter the name of the number you want to search for").lower().strip()
 
         qualified_words = []
         qualified_numbers = []
@@ -45,6 +51,3 @@ while True:
     else:
         status_for_2 = keyboard.is_pressed("2")
         status_for_1 = keyboard.is_pressed("1")
-
-
-
